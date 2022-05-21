@@ -46,7 +46,7 @@ const employee = require("../lib/employee");
         `
     };
 
-    generateHTML = (data) => {
+    employeeCards = (data) => {
         cardsArray = [];
 
         for(let i = 0; i < data.length; i++) {
@@ -68,8 +68,11 @@ const employee = require("../lib/employee");
                     cardsArray.push(internCard);
             }
         }
+    };
 
-const generateTeam = generatePage(employeeCards);
+
+
+
 
 
 
@@ -105,4 +108,6 @@ const generatePage = function (employeeCards) {
     `;
 }
 
-module.exports = generateHTML();
+// const generateTeam = generatePage(employeeCards);
+
+module.exports = generatePage()
