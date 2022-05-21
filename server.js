@@ -1,11 +1,19 @@
 const fs = require('fs');
+// const path = require('path')
 const inquirer = require('inquirer');
-const generateTeam = require('./generate');
+const generateTeam = require('./assets/generate');
 
 
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const employee = require('./lib/employee');
+
+// const outputFolder = path.resolve(__dirname, 'output')
+// const htmlName = path.join(outputFolder, "team.html")
+
+const teamArr = []
+
 
 
 const questions = 
@@ -35,8 +43,7 @@ const questions =
 ]);
 
 if (answers.role === "Manager") {
-    const managerAns = inquirer
-        .prompt([
+        inquirer.prompt([
             {
             type: "input",
             message: "What is your office number",
@@ -46,8 +53,7 @@ if (answers.role === "Manager") {
 
 
 } else if (answer.role === "Engineer") {
-    const EngineerAns = inquirer
-.prompt ([
+    inquirer.prompt ([
     {
         type:'input',
         name:'github',
@@ -56,20 +62,48 @@ if (answers.role === "Manager") {
 ])
 
 } else if (answer.role === "Intern") {
-    const internAns =  inquirer
-    .prompt([
+    inquirer.prompt([
         {
         type: "input",
         message: "What school did you attend?",
         name: "school",
         },
-    ])
-}
 
-function writeHTML {
-    fs.newEmployee ('index.html')
-    generateTeam(newEmployee)
- 
+        {
+            type:'confirm',
+            name: 'confirmAddEmployee',
+            message: 'Would you like to add another Employee?',
+            default: false
+        }
+    ])
+
+    .then(employeeData => {
+        let { name, id, email, role, github, officenumber, school, confirmAddEmployee} = employeeData;
+    
+        if (role === Manager) {
+        employee = new Manager (name, id, email, officenumber)
+
+         } else if (role === "Engineer") {
+        employee = new Engineer (name, id, email, github)
+
+         } else if (role === "Intern") {
+         employee = new Intern (name, id, email, school)
+         }
+
+         teamArr.push(employee);
+
+         if (confirmAddEmployee) {
+             return addEmployee(teamArr); 
+          } else  {
+                    return teamArr;
+             }
+    })
+};
+
+
+
+function writeHTML() {
+ fs.writeFileSync(htmlName, generateTeam(teamArr), 'utf-8');
 }
 
 function init() {
