@@ -12,11 +12,11 @@ const employee = require('./lib/employee');
 // const outputFolder = path.resolve(__dirname, 'output')
 // const htmlName = path.join(outputFolder, "team.html")
 
-const teamArr = []
+const teamArr = [];
 
 
 
-const questions = 
+function questions() {
     inquirer.prompt([
     {
         type: 'input',
@@ -33,84 +33,104 @@ const questions =
     {
         type:'input',
         message:'Whats your ID',
-        message:'ID',
+        name:'ID',
     },
     {
         type:'input',
         name:'email',
         message:'Input your email?',
-    }
-]);
+    },
+])
 
-if (answers.role === "Manager") {
-        inquirer.prompt([
-            {
-            type: "input",
-            message: "What is your office number",
-            name: "officeNumber",
-        },
-        ]);
+.then ((answers) => {
+
+ if (answers.role === "Manager") {
+    createManager()
 
 
 } else if (answer.role === "Engineer") {
-    inquirer.prompt ([
-    {
-        type:'input',
-        name:'github',
-        message:'Github link?',
-    }
-])
+    createEngineer()
+
 
 } else if (answer.role === "Intern") {
+    createIntern()
+
+}
+
+        // {
+        //     type:'confirm',
+        //     name: 'confirmAddEmployee',
+        //     message: 'Would you like to add another Employee?',
+        //     default: false
+        // }
+    // ])
+    // };
+})
+
+
+//          teamArr.push(employee);
+
+//          if (confirmAddEmployee) {
+//              return addEmployee(teamArr); 
+//           } else  {
+//                     return teamArr;
+//              }
+//     })
+}
+
+function createManager() {
+    inquirer.prompt([
+        {
+        type: "input",
+        message: "What is your office number",
+        name: "officeNumber",
+    },
+    ])
+    .then(employee)
+    
+    } if (employee === Manager) {
+        employee = new Manager (name, id, email, officenumber)
+};
+
+function createEngineer() {
+    inquirer.prompt ([
+        {
+            type:'input',
+            name:'github',
+            message:'Github link?',
+        }
+    ])
+    .then(employee) 
+     } if (employee === "Engineer") {
+        employee = new Enginner (name, id, email, github)
+    };
+
+function createIntern() {
     inquirer.prompt([
         {
         type: "input",
         message: "What school did you attend?",
         name: "school",
-        },
-
-        {
-            type:'confirm',
-            name: 'confirmAddEmployee',
-            message: 'Would you like to add another Employee?',
-            default: false
         }
     ])
-
-    .then(employeeData => {
-        let { name, id, email, role, github, officenumber, school, confirmAddEmployee} = employeeData;
-    
-        if (role === Manager) {
-        employee = new Manager (name, id, email, officenumber)
-
-         } else if (role === "Engineer") {
-        employee = new Engineer (name, id, email, github)
-
-         } else if (role === "Intern") {
-         employee = new Intern (name, id, email, school)
-         }
-
-         teamArr.push(employee);
-
-         if (confirmAddEmployee) {
-             return addEmployee(teamArr); 
-          } else  {
-                    return teamArr;
-             }
-    })
-};
-
-
+        .then(employee) 
+        } if (employee === "Intern") {
+        employee = new Intern (name, id, email, school) 
+     generateTeam(teamArr);
+    };
+        
+   
+        
 
 function writeHTML() {
  fs.writeFileSync(htmlName, generateTeam(teamArr), 'utf-8');
 }
 
 function init() {
-    inquirer.prompt(questions)
+    questions()
     .then(function(userInput) {
     writeHTML("index.html", generateTeam(userInput))
     }
     )};
-
-init();
+// 
+init()

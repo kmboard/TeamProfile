@@ -9,6 +9,8 @@ describe('Employee class', () => {
         expect(employee.email).toBe('lewis.D@test.come');
 });
 
+});
+
     it('should return values', () => {
         const employee = newEmployee('Lewis','8765','lewis.D@test.come')
         const name  = employee.getName();
