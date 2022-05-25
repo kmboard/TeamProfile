@@ -58,18 +58,14 @@ function questions() {
 }
 })
 }
-
-
-//          teamArr.push(employee);
-
-//          if (confirmAddEmployee) {
-//              return addEmployee(teamArr); 
-//           } else  {
-//                     return teamArr;
-//              }
-//     })
-// }
-
+function main() {
+    return inquirer.prompt({
+        {
+            type: 'confirm',
+            message: 'Would you like to add another team member',
+        }
+    })
+}
 function createManager() {
     inquirer.prompt([
         {
@@ -78,11 +74,10 @@ function createManager() {
         name: "officeNumber",
     },
     ])
-    .then(answers => {
-        var manager = new Manager (answers.name, anwsers.id, answers.email, answers.officenumber)
-        Manager = createManager(Employee)
+    .then(data => {
+        var manager = new Manager (data.name, data.id, data.email, data.officeNumber)
         teamArr.push(manager)
-       questions()
+       main()
     })
 };
 
@@ -94,11 +89,10 @@ function createEngineer() {
             message:'Github link?',
         }
     ])
-    .then(answers => {
-        var engineer = new Engineer (answers.name, anwsers.id, answers.email, answers.github)
-        Engineer = createEngineer(Employee)
+    .then(data => {
+        var engineer = new Engineer (data.name, data.id, data.email, data.github)
         teamArr.push(engineer)
-        questions()
+        main()
     })
 };
 
@@ -110,11 +104,11 @@ function createIntern() {
         name: "school",
         }
     ])
-    .then(answers => {
-        var intern = new Intern (answers.name, anwsers.id, answers.email, answers.school)
+    .then(data => {
+        var intern = new Intern (data.name, data.id, data.email, data.school)
         Intern = createIntern(Employee)
         teamArr.push(intern)
-        questions()
+        main()
     })
 };
         

@@ -107,4 +107,4 @@ const generatePage = function (employeeCards) {
 
 // const generateTeam = generatePage(employeeCards);
 
-module.exports = generatePage()
+module.exports = generatePage
