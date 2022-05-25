@@ -73,9 +73,6 @@ const employee = require("../lib/employee");
 
 
 
-
-
-
 const generatePage = function (employeeCards) {
     return `    
     <!DOCTYPE html>
