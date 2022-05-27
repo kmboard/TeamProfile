@@ -68,12 +68,13 @@ const employee = require("../lib/employee");
                     cardsArray.push(internCard);
             }
         }
+        return cardsArray.join('')
     };
 
 
 
 
-const generatePage = function (employeeCards) {
+module.exports = (data) => {
     return `    
     <!DOCTYPE html>
     <html lang="en">
@@ -96,7 +97,7 @@ const generatePage = function (employeeCards) {
 
     <div class="container">
     <div class="row">
-    ${employeeCards}
+    ${employeeCards(data)}
     </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -104,7 +105,3 @@ const generatePage = function (employeeCards) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     `;
 }
-
-// const generateTeam = generatePage(employeeCards);
-
-module.exports = generatePage
